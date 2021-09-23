@@ -22,6 +22,15 @@
 
     <script>
       async function generate(c, d, p) {
+        if (
+          isNaN(c+d+p) || 
+          Math.max(c,d,p) >= 2**32 || 
+          Math.min(c,d,p) < 0 ||
+          !Number.isInteger(c) ||
+          !Number.isInteger(d) ||
+          !Number.isInteger(p)
+        ) return;
+        
         const res = await fetch('https://api.waifulabs.com/generate_big', {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
