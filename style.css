@@ -1,0 +1,54 @@
+html {
+  background-color: #222;
+  font-family: 'Lato';
+}
+
+body {
+  margin: 32px auto;
+  padding: 32px;
+  border-radius: 8px;
+  background-color: #333;
+  width: min-content;
+}
+
+#image {
+  display: block;
+  border-radius: 4px;
+}
+
+#download {
+  display: block;
+  margin: 16px auto;
+  padding: 8px 16px;
+  width: min-content;
+  color: #fff;
+  text-decoration: none;
+  font-size: 24px;
+  border-radius: 4px;
+  background-color: #444;
+  transition: .1s;
+}
+#download:hover {
+  background-color: #555;
+  transition: .1s;
+}
+
+#textbox {
+  display: block;
+  width: 100%;
+  margin-top: 32px;
+  padding: 4px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #444;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 20px;
+  transition: .1s;
+}
+#textbox:hover,
+#textbox:focus {
+  background-color: #555;
+  transition: .1s;
+}

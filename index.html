@@ -1,0 +1,59 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/d649462fb3.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Waifulabs</title>
+  </head>
+
+  <body>
+    <img src="" id="image">
+    <a href="" id="download" download="">Download!</a>
+    <input type="text" id="textbox">
+
+    <script>
+      async function generate(c, d, p) {
+        const res = await fetch('https://api.waifulabs.com/generate_big', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          mode: 'cors',
+          body: JSON.stringify({
+            currentGirl: [
+              c, c, c, c,
+              d, d, d, d,
+              d, d, d, d,
+              p, p, p, p,
+              0, [0,0,0],
+            ],
+          }),
+        });
+
+        const data = await res.json();
+
+        document.getElementById('image').src = 'data:image/png;charset=utf-8;base64,' + data.girl;
+        document.getElementById('download').href = 'data:image/png;charset=utf-8;base64,' + data.girl;
+        document.getElementById('download').download = `c${c}-d${d}-p${p}`;
+      }
+
+      generate(
+        Math.round(Math.random()*(10**6)),
+        Math.round(Math.random()*(10**6)),
+        Math.round(Math.random()*(19**6))
+      );
+
+      document.getElementById('textbox').onkeydown = e => {
+        if (e.keyCode !== 13) return;
+        const [c, d, p] = e.target.value.match(/\d+/g);
+        generate(
+          Number(c),
+          Number(d),
+          Number(p)
+        );
+      }
+    </script>
+  </body>
+</html>
