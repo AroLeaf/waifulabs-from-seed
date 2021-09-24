@@ -11,24 +11,22 @@
   </head>
 
   <body>
-    <ol>
-      <li>Input seeds (3 numbers surrounded by anything else)</li>
-      <li>Press enter</li>
-      <li>Enjoy!</li>
-    </ol>
     <img src="" id="image">
-    <a href="" id="download" download="">Download!</a>
-    <input type="text" id="textbox" placeholder="seeds...">
+    <form class="seeds" id="form" action="javascript:void(0)">
+      <input type="text" id="textbox" placeholder="seeds...">
+      <input type="submit" id="submit" value="Go">
+    </form>
+    <div class="buttons">
+      <a class="button" id="download"><span class="fas fa-arrow-circle-down"></span>&ensp;Download</a>
+      <a class="button" href="javascript:random()"><span class="fas fa-random" id="random-icon"></span>&ensp;Randomize</a>
+    </div>
 
     <script>
-      async function generate(c, d, p) {
+      async function generate(c, d, p, id) {
         if (
           isNaN(c+d+p) || 
           Math.max(c,d,p) >= 2**32 || 
-          Math.min(c,d,p) < 0 ||
-          !Number.isInteger(c) ||
-          !Number.isInteger(d) ||
-          !Number.isInteger(p)
+          Math.min(c,d,p) < 0
         ) return;
         
         const res = await fetch('https://api.waifulabs.com/generate_big', {
@@ -53,19 +51,24 @@
         document.getElementById('download').download = `c${c}-d${d}-p${p}`;
       }
 
-      generate(
-        Math.floor(Math.random()*(2**32)),
-        Math.floor(Math.random()*(2**32)),
-        Math.floor(Math.random()*(2**32))
-      );
+      async function random() {
+        document.getElementById('random-icon').classList.replace('fa-random', 'fa-spinner');
+        await generate(
+          Math.floor(Math.random()*(2**32)),
+          Math.floor(Math.random()*(2**32)),
+          Math.floor(Math.random()*(2**32))
+        );
+        document.getElementById('random-icon').classList.replace('fa-spinner', 'fa-random');
+      }
 
-      document.getElementById('textbox').onkeydown = e => {
-        if (e.keyCode !== 13) return;
-        const [c, d, p] = e.target.value.match(/\d+/g);
+      random();
+
+      document.getElementById('form').onsubmit = () => {
+        const [c, d, p] = document.getElementById('textbox').value.match(/\d+/g);
         generate(
-          Number(c),
-          Number(d),
-          Number(p)
+          Math.round(Number(c)),
+          Math.round(Number(d)),
+          Math.round(Number(p))
         );
       }
     </script>
