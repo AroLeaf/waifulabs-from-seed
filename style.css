@@ -18,15 +18,13 @@ body {
 }
 
 .seeds {
-  display: grid;
-  grid-template-columns: 1fr auto;
   margin: 16px 0px;
   grid-gap: 8px;
 }
 
 .buttons {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: auto auto auto;
   margin: 16px 0px;
   grid-gap: 8px;
 }
@@ -50,26 +48,6 @@ body {
   transition: .1s;
 }
 
-#submit {
-  display: block;
-  padding: 4px 16px;
-  width: 100%;
-  text-align: center;
-  color: #fff;
-  font-size: 24px;
-  font-weight: 700;
-  border-radius: 4px;
-  border: none;
-  outline: none;
-  background-color: #444;
-  transition: .1s;
-  cursor: pointer;
-}
-#submit:hover {
-  background-color: #555;
-  transition: .1s;
-}
-
 .button {
   display: block;
   padding: 8px 0px;
@@ -77,10 +55,13 @@ body {
   text-align: center;
   color: #fff;
   text-decoration: none;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 700;
   border-radius: 4px;
   background-color: #444;
+  border: none;
+  outline: none;
+  cursor: pointer;
   transition: .1s;
 }
 .button:hover {

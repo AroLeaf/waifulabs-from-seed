@@ -14,11 +14,11 @@
     <img src="" id="image">
     <form class="seeds" id="form" action="javascript:void(0)">
       <input type="text" id="textbox" placeholder="seeds...">
-      <button type="submit" id="submit">Go <span class="fas fa-arrow-right" id="submit-icon"></span></button>
     </form>
     <div class="buttons">
       <a class="button" id="download"><span class="fas fa-arrow-circle-down"></span>&ensp;Download</a>
       <a class="button" href="javascript:random()"><span class="fas fa-random" id="random-icon"></span>&ensp;Randomize</a>
+      <button type="submit" id="submit" form="form" class="button">Go <span class="fas fa-arrow-right" id="submit-icon"></span></button>
     </div>
 
     <script>
@@ -49,6 +49,7 @@
         document.getElementById('image').src = 'data:image/png;charset=utf-8;base64,' + data.girl;
         document.getElementById('download').href = 'data:image/png;charset=utf-8;base64,' + data.girl;
         document.getElementById('download').download = `c${c}-d${d}-p${p}`;
+        document.getElementById('textbox').value = `c${c}-d${d}-p${p}`;
       }
 
       async function random() {
