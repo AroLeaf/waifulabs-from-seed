@@ -4,7 +4,19 @@ html {
 }
 
 body {
-  margin: 64px auto;
+  color: #fff;
+}
+
+p {
+  margin: 4px;
+}
+
+#credit-link {
+    color: #87ffaf;
+}
+
+.container {
+  margin: 12px auto;
   padding: 32px;
   border-radius: 8px;
   background-color: #333;
@@ -12,9 +24,22 @@ body {
   box-sizing: border-box;
 }
 
+.credit-box {
+  padding: 4px;
+  border-radius: 4px;
+  background-color: #333;
+  position: fixed;
+  left: 10px;
+  top: calc(100% - 50px);
+}
+
 #image {
   display: block;
-  border-radius: 4px;
+  border-radius: 4px 4px 0px 0px;
+}
+#image-bottom {
+    display: block;
+    border-radius: 4px 4px 0px 0px;
 }
 
 .seeds {
@@ -24,12 +49,25 @@ body {
 
 .buttons {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: max-content auto;
   margin: 16px 0px;
-  grid-gap: 8px;
+  grid-gap: 16px;
+}
+.seed-buttons {
+  display: grid;
+  grid-template-columns: auto auto;
 }
 
-#textbox {
+.row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: stretch;
+    align-items: center;
+}
+
+.seed-box {
   display: block;
   width: 100%;
   padding: 4px;
@@ -40,18 +78,36 @@ body {
   outline: none;
   color: #fff;
   font-size: 24px;
+  text-align: center;
   transition: .1s;
 }
-#textbox:hover,
-#textbox:focus {
+.seed-box:hover,
+.seed-box:focus {
   background-color: #555;
   transition: .1s;
+}
+.seed-top {
+  border-radius: 4px 4px 0px 0px;
+}
+.seed-bottom {
+  border-radius: 0px 0px 4px 4px;
+}
+
+#full-seed {
+  text-align: center;
+  display: block;
+  width: 100%;
+  padding: 4px;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 16px;
 }
 
 .button {
   display: block;
-  padding: 8px 0px;
-  width: 100%;
+  padding: 8px 8px;
   text-align: center;
   color: #fff;
   text-decoration: none;
@@ -67,6 +123,16 @@ body {
 .button:hover {
   background-color: #555;
   transition: .1s;
+}
+.button-bl {
+  border-radius: 0px 0px 0px 4px;
+  border-top: 1px solid #555;
+  font-size: 15px;
+}
+.button-br {
+  border-radius: 0px 0px 4px 0px;
+  border-top: 1px solid #555;
+  font-size: 15px;
 }
 
 .fa-spinner {

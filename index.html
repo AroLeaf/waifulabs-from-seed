@@ -1,3 +1,5 @@
+<!-- c594274213-d1471679617-p1864613365 -->
+
 <html lang="en">
   <head>
     <meta charset="UTF-8">
@@ -11,14 +13,49 @@
   </head>
 
   <body>
-    <img src="" id="image">
-    <form class="seeds" id="form" action="javascript:void(0)">
-      <input type="text" id="textbox" placeholder="seeds...">
-    </form>
-    <div class="buttons">
-      <a class="button" id="download"><span class="fas fa-arrow-circle-down"></span>&ensp;Download</a>
-      <a class="button" href="javascript:random()"><span class="fas fa-random" id="random-icon"></span>&ensp;Randomize</a>
-      <button type="submit" id="submit" form="form" class="button">Go <span class="fas fa-arrow-right" id="submit-icon"></span></button>
+    <div class="container">
+        <img src="" id="image">
+        <div id="image-bottom">
+            <form id="full-form" action="javascript:parse_seed('full')">
+                <input class="seed-box seed-bottom" type="text" id="full-seed" placeholder="Paste full seed here">
+            </form>
+        </div>
+        <div>
+            <form class="seeds" id="color-form" action="javascript:parse_seed('color')">
+                <input class="seed-box seed-top" type="text" id="color-seed" placeholder="Color">
+                <div class="seed-buttons">
+                    <a class="button button-bl" href="javascript:random('color')"><span class="fas fa-random" id="random-icon-color"></span></a>
+                    <a class="button button-br" href="javascript:parse_seed('color')"><span class="fas fa-arrow-right" id="submit-icon-color"></span></a>
+                </div>
+            </form>
+        </div>
+        <div>
+            <form class="seeds" id="detail-form" action="javascript:parse_seed('detail')">
+                <input class="seed-box seed-top" type="text" id="detail-seed" placeholder="Detail">
+                <div class="seed-buttons">
+                    <a class="button button-bl" href="javascript:random('detail')"><span class="fas fa-random" id="random-icon-detail"></span></a>
+                    <a class="button button-br" href="javascript:parse_seed('detail')"><span class="fas fa-arrow-right" id="submit-icon-detail"></span></a>
+                </div>
+            </form>
+        </div>
+        <div>
+            <form class="seeds" id="pose-form" action="javascript:parse_seed('pose')">
+                <input class="seed-box seed-top" type="text" id="pose-seed" placeholder="Pose">
+                <div class="seed-buttons">
+                    <a class="button button-bl" href="javascript:random('pose')"><span class="fas fa-random" id="random-icon-pose"></span></a>
+                    <a class="button button-br" href="javascript:parse_seed('pose')"><span class="fas fa-arrow-right" id="submit-icon-pose"></span></a>
+                </div>
+            </form>
+        </div>
+        <div class="buttons">
+            <a class="button" id="download"><span class="fas fa-arrow-circle-down"></span>&ensp;Download</a>
+            <a class="button" href="javascript:random('full')"><span class="fas fa-dice" id="random-icon"></span>&ensp;Randomize All</a>
+        </div>
+        <a class="button" href="javascript:parse_seed('full')">Parse Full Seed&ensp;<span class="fas fa-arrow-right" id="submit-icon"></span></a>
+    </div>
+
+    <div class="credit-box">
+        <p>Credits to <a href="https://github.com/aroleaf" target="_blank" id="credit-link">AroLeaf</a></p>
     </div>
 
     <script>
@@ -49,31 +86,85 @@
         document.getElementById('image').src = 'data:image/png;charset=utf-8;base64,' + data.girl;
         document.getElementById('download').href = 'data:image/png;charset=utf-8;base64,' + data.girl;
         document.getElementById('download').download = `c${c}-d${d}-p${p}`;
-        document.getElementById('textbox').value = `c${c}-d${d}-p${p}`;
+        document.getElementById('color-seed').value = `c${c}`;
+        document.getElementById('detail-seed').value = `d${d}`;
+        document.getElementById('pose-seed').value = `p${p}`;
+        document.getElementById('full-seed').value = `c${c}-d${d}-p${p}`;
       }
 
-      async function random() {
-        document.getElementById('random-icon').classList.replace('fa-random', 'fa-spinner');
-        await generate(
-          Math.floor(Math.random()*(2**32)),
-          Math.floor(Math.random()*(2**32)),
-          Math.floor(Math.random()*(2**32))
-        );
-        document.getElementById('random-icon').classList.replace('fa-spinner', 'fa-random');
-      }
-
-      random();
-
-      document.getElementById('form').onsubmit = async () => {
-        document.getElementById('submit-icon').classList.replace('fa-arrow-right', 'fa-spinner');
-        const [c, d, p] = document.getElementById('textbox').value.match(/\d+/g);
+      // a = attribute (color, detail, pose)
+      async function random(a) {
+        if (!document.getElementById("full-seed").value == "") {
+            var [c, d, p] = document.getElementById("full-seed").value.match(/\d+/g);
+        };
+        var id = "";
+        switch (a) {
+            case "color":
+                id = "random-icon-color";
+                c = Math.floor(Math.random()*(2**32));
+            break;
+            case "detail":
+                id = "random-icon-detail";
+                d = Math.floor(Math.random()*(2**32));
+            break;
+            case "pose":
+                id = "random-icon-pose";
+                p = Math.floor(Math.random()*(2**32));
+            break;
+            case "full":
+                id = "random-icon";
+                c = Math.floor(Math.random()*(2**32));
+                d = Math.floor(Math.random()*(2**32));
+                p = Math.floor(Math.random()*(2**32));
+            break;
+        }
+        document.getElementById(id).classList.replace('fa-random', 'fa-spinner');
         await generate(
           Math.round(Number(c)),
           Math.round(Number(d)),
           Math.round(Number(p))
         );
-        document.getElementById('submit-icon').classList.replace('fa-spinner', 'fa-arrow-right');
+        document.getElementById(id).classList.replace('fa-spinner', 'fa-random');
       }
+
+      random('full');
+
+      async function parse_seed(a) {
+        if (!document.getElementById("full-seed").value == "") {
+            var [c, d, p] = document.getElementById("full-seed").value.match(/\d+/g);
+        };
+        var id = "";
+        switch (a) {
+            case "color":
+                id = "submit-icon-color";
+                c = document.getElementById("color-seed").value.match(/\d+/g);
+            break;
+            case "detail":
+                id = "submit-icon-detail";
+                d = document.getElementById("detail-seed").value.match(/\d+/g);
+            break;
+            case "pose":
+                id = "submit-icon-pose";
+                p = document.getElementById("pose-seed").value.match(/\d+/g)
+            break;
+            case "full":
+                id = "submit-icon";
+                var [c, d, p] = document.getElementById("full-seed").value.match(/\d+/g);
+            break;
+        }
+        document.getElementById(id).classList.replace('fa-arrow-right', 'fa-spinner');
+        await generate(
+          Math.round(Number(c)),
+          Math.round(Number(d)),
+          Math.round(Number(p))
+        ).catch();
+        document.getElementById(id).classList.replace('fa-spinner', 'fa-arrow-right');
+      }
+
+      document.getElementById('full-seed').addEventListener("click",function(){
+        this.select();
+      });
+
     </script>
   </body>
 </html>
