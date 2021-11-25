@@ -11,13 +11,10 @@ p {
   margin: 4px;
 }
 
-#credit-link {
-    color: #87ffaf;
-}
-
 .container {
   margin: 12px auto;
   padding: 32px;
+  padding-bottom: 0px;
   border-radius: 8px;
   background-color: #333;
   width: 464px;
@@ -25,12 +22,19 @@ p {
 }
 
 .credit-box {
-  padding: 4px;
-  border-radius: 4px;
-  background-color: #333;
-  position: fixed;
-  left: 10px;
-  top: calc(100% - 50px);
+  text-align: center;
+  padding: 16px 0px;
+}
+
+.credit-box a {
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+  transition: .2s;
+}
+.credit-box a:hover {
+  color: #ccc;
+  transition: .2s;
 }
 
 #image {
@@ -49,7 +53,7 @@ p {
 
 .buttons {
   display: grid;
-  grid-template-columns: max-content auto;
+  grid-template-columns: auto auto;
   margin: 16px 0px;
   grid-gap: 16px;
 }
