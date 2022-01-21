@@ -1,5 +1,3 @@
-<!-- c594274213-d1471679617-p1864613365 -->
-
 <html lang="en">
   <head>
     <meta charset="UTF-8">
@@ -11,159 +9,13 @@
     <link rel="stylesheet" href="style.css">
     <title>Waifulabs</title>
   </head>
-
   <body>
     <div class="container">
-      <img src="" id="image">
-      <div id="image-bottom">
-        <form id="full-form" action="javascript:parse_seed('full')">
-          <input class="seed-box seed-bottom" type="text" id="full-seed" placeholder="Paste full seed here">
-        </form>
-      </div>
-      <div>
-        <form class="seeds" id="color-form" action="javascript:parse_seed('color')">
-          <input class="seed-box seed-top" type="text" id="color-seed" placeholder="Color">
-          <div class="seed-buttons">
-            <a class="button button-bl" href="javascript:random('color')"><span class="fas fa-random" id="random-icon-color"></span></a>
-            <a class="button button-br" href="javascript:parse_seed('color')"><span class="fas fa-arrow-right" id="submit-icon-color"></span></a>
-          </div>
-        </form>
-      </div>
-      <div>
-        <form class="seeds" id="detail-form" action="javascript:parse_seed('detail')">
-          <input class="seed-box seed-top" type="text" id="detail-seed" placeholder="Detail">
-          <div class="seed-buttons">
-            <a class="button button-bl" href="javascript:random('detail')"><span class="fas fa-random" id="random-icon-detail"></span></a>
-            <a class="button button-br" href="javascript:parse_seed('detail')"><span class="fas fa-arrow-right" id="submit-icon-detail"></span></a>
-          </div>
-        </form>
-      </div>
-      <div>
-        <form class="seeds" id="pose-form" action="javascript:parse_seed('pose')">
-          <input class="seed-box seed-top" type="text" id="pose-seed" placeholder="Pose">
-          <div class="seed-buttons">
-            <a class="button button-bl" href="javascript:random('pose')"><span class="fas fa-random" id="random-icon-pose"></span></a>
-            <a class="button button-br" href="javascript:parse_seed('pose')"><span class="fas fa-arrow-right" id="submit-icon-pose"></span></a>
-          </div>
-        </form>
-      </div>
-      <div class="buttons">
-        <a class="button" id="download"><span class="fas fa-arrow-circle-down"></span>&ensp;Download</a>
-        <a class="button" href="javascript:random('full')"><span class="fas fa-dice" id="random-icon"></span>&ensp;Randomize All</a>
-      </div>
-      <a class="button" href="javascript:parse_seed('full')">Parse Full Seed&ensp;<span class="fas fa-arrow-right" id="submit-icon"></span></a>
+      <h1>OUT OF ORDER</h1>
+      <p>Waifulabs recently updated to v2, in which seeds are now sent as encrypted strings. This makes is to this tool can't function no matter what. To see the old (broken) site <a href="v1.html">click here</a></p>
       <div class="credit-box">
         <span class="fab fa-github" style="color:#fff"></span>&emsp13;<a href="https://github.com/AroLeaf" target="_blank">Leaf</a>&emsp13;|&emsp13;<span class="fab fa-github" style="color:#fff"></span>&emsp13;<a href="https://github.com/aylizior" target="_blank">Lizi</a>
       </div>
     </div>
-
-    <script>
-      async function generate(c, d, p, id) {
-        if (
-          isNaN(c+d+p) || 
-          Math.max(c,d,p) >= 2**32 || 
-          Math.min(c,d,p) < 0
-        ) return;
-        
-        const res = await fetch('https://api.waifulabs.com/generate_big', {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          mode: 'cors',
-          body: JSON.stringify({
-            currentGirl: [
-              p, p, p, p,
-              d, d, d, d,
-              d, d, d, d,
-              c, c, c, c,
-              0, [0,0,0],
-            ],
-          }),
-        });
-
-        const data = await res.json();
-
-        document.getElementById('image').src = 'data:image/png;charset=utf-8;base64,' + data.girl;
-        document.getElementById('download').href = 'data:image/png;charset=utf-8;base64,' + data.girl;
-        document.getElementById('download').download = `c${c}-d${d}-p${p}`;
-        document.getElementById('color-seed').value = `c${c}`;
-        document.getElementById('detail-seed').value = `d${d}`;
-        document.getElementById('pose-seed').value = `p${p}`;
-        document.getElementById('full-seed').value = `c${c}-d${d}-p${p}`;
-      }
-
-      // a = attribute (color, detail, pose)
-      async function random(a) {
-        if (!document.getElementById("full-seed").value == "") {
-            var [c, d, p] = document.getElementById("full-seed").value.match(/\d+/g);
-        };
-        var id = "";
-        switch (a) {
-            case "color":
-                id = "random-icon-color";
-                c = Math.floor(Math.random()*(2**32));
-            break;
-            case "detail":
-                id = "random-icon-detail";
-                d = Math.floor(Math.random()*(2**32));
-            break;
-            case "pose":
-                id = "random-icon-pose";
-                p = Math.floor(Math.random()*(2**32));
-            break;
-            case "full":
-                id = "random-icon";
-                c = Math.floor(Math.random()*(2**32));
-                d = Math.floor(Math.random()*(2**32));
-                p = Math.floor(Math.random()*(2**32));
-            break;
-        }
-        document.getElementById(id).classList.replace('fa-random', 'fa-spinner');
-        await generate(
-          Math.round(Number(c)),
-          Math.round(Number(d)),
-          Math.round(Number(p))
-        );
-        document.getElementById(id).classList.replace('fa-spinner', 'fa-random');
-      }
-
-      random('full');
-
-      async function parse_seed(a) {
-        if (!document.getElementById("full-seed").value == "") {
-            var [c, d, p] = document.getElementById("full-seed").value.match(/\d+/g);
-        };
-        var id = "";
-        switch (a) {
-            case "color":
-                id = "submit-icon-color";
-                c = document.getElementById("color-seed").value.match(/\d+/g);
-            break;
-            case "detail":
-                id = "submit-icon-detail";
-                d = document.getElementById("detail-seed").value.match(/\d+/g);
-            break;
-            case "pose":
-                id = "submit-icon-pose";
-                p = document.getElementById("pose-seed").value.match(/\d+/g)
-            break;
-            case "full":
-                id = "submit-icon";
-                var [c, d, p] = document.getElementById("full-seed").value.match(/\d+/g);
-            break;
-        }
-        document.getElementById(id).classList.replace('fa-arrow-right', 'fa-spinner');
-        await generate(
-          Math.round(Number(c)),
-          Math.round(Number(d)),
-          Math.round(Number(p))
-        ).catch();
-        document.getElementById(id).classList.replace('fa-spinner', 'fa-arrow-right');
-      }
-
-      document.getElementById('full-seed').addEventListener("click",function(){
-        this.select();
-      });
-
-    </script>
   </body>
 </html>

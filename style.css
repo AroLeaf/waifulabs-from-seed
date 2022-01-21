@@ -26,13 +26,13 @@ p {
   padding: 16px 0px;
 }
 
-.credit-box a {
+a {
   font-weight: 700;
   color: #fff;
   text-decoration: none;
   transition: .2s;
 }
-.credit-box a:hover {
+a:hover {
   color: #ccc;
   transition: .2s;
 }
